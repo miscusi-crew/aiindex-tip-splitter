@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tip Splitter</title>
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="base.css">
+<style>
+  main{max-width:28rem}
+  form{display:grid;gap:1rem;margin-top:.75rem}
+  .field{display:grid;gap:.35rem}
+  .field > input{font-size:1.25rem;font-variant-numeric:tabular-nums}
+  .tips{display:grid;grid-template-columns:repeat(5,1fr);gap:.35rem}
+  .tips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+  .tips input{width:100%;text-align:center}
+  .people{display:grid;grid-template-columns:auto 1fr auto;gap:.35rem;align-items:center;max-width:12rem}
+  .people input{text-align:center;font-size:1.25rem;width:100%}
+  .people button{width:2.5rem;height:2.5rem;padding:0;font-size:1.2rem}
+  .result{display:grid;gap:.5rem;padding:1rem;border-radius:.75rem;background:var(--card);border:1px solid var(--line);margin-top:.5rem}
+  .result div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+  .result .big{font-size:1.6rem;font-weight:700;color:var(--accent)}
+  .check{display:flex;gap:.5rem;align-items:center}
+</style>
+</head>
+<body>
+<main>
+  <h1>Tip Splitter</h1>
+  <p class="sub">Enter the bill, pick a tip, split it.</p>
+  <form id="form">
+    <div class="field">
+      <label for="bill">Bill amount</label>
+      <input id="bill" inputmode="decimal" placeholder="0.00" autocomplete="off">
+    </div>
+    <div class="field">
+      <span id="tip-label">Tip</span>
+      <div class="tips" role="group" aria-labelledby="tip-label">
+        <button type="button" data-tip="10">10%</button>
+        <button type="button" data-tip="15">15%</button>
+        <button type="button" data-tip="18" aria-pressed="true">18%</button>
+        <button type="button" data-tip="20">20%</button>
+        <input id="custom" inputmode="decimal" placeholder="Other %" aria-label="Other tip percentage">
+      </div>
+    </div>
+    <div class="field">
+      <label for="people">People</label>
+      <div class="people">
+        <button type="button" id="minus" aria-label="One fewer person">−</button>
+        <input id="people" inputmode="numeric" value="2">
+        <button type="button" id="plus" aria-label="One more person">+</button>
+      </div>
+    </div>
+    <label class="check"><input type="checkbox" id="round"> Round each share up to a whole amount</label>
+  </form>
+  <div class="result" aria-live="polite">
+    <div><span>Tip</span><b id="tip">0.00</b></div>
+    <div><span>Total</span><b id="total">0.00</b></div>
+    <div><span>Each person pays</span><span class="big" id="each">0.00</span></div>
+    <div id="extra-row" hidden><span>Extra from rounding</span><span id="extra">0.00</span></div>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
